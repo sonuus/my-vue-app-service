@@ -27,7 +27,7 @@ def get_s3_buckets():
 
 @app.route('/ppp')
 def get_param_name_val():
-    param = SSMParameter('prod.app1.db-user')
+    param = SSMParameter('prod.app1.db-user',with_decryption=False)
     value = param.value
     return jsonify({"prod.app1.db-user":value})
 
