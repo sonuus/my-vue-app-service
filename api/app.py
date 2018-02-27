@@ -23,13 +23,25 @@ def get_s3_buckets():
     for bucket in s3.buckets.all():
         print(bucket.name)
         lst.append(bucket.name + "  777777777")
-    return jsonify({'buckets':lst})
+        return jsonify({'buckets':lst})
 
 @app.route('/ppp')
 def get_param_name_val():
     param = SSMParameter('prod.app1.db-user')
     value = param.value
     return jsonify({"prod.app1.db-user":value})
+
+@app.errorhandler(Exception)
+def unhandled_exception(e):
+    app.logger.error('Unhandled Exception: %s', (e))
+    return render_template('500.htm'), 500
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    app.logger.error('Server Error: %s', (error))
+    return render_template('500.htm'), 500
+
+
 
     
 

@@ -10,6 +10,7 @@ name = "pypi"
 flask = "*"
 "boto3" = "*"
 ssm-cache = "*"
+setuptools = "*"
 
 
 [dev-packages]
